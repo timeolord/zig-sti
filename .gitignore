@@ -1,0 +1,7 @@
+.direnv
+zig-out
+.zig-cache
+*~*
+*\#*
+vgcore.*
+test_serial

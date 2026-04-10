@@ -1,5 +1,5 @@
 {
-  description = "learning-zig";
+  description = "zig-sti";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
@@ -21,13 +21,13 @@
           packages = [
             zig
             zls
-            xorg.xorgserver
-            libxrandr
-            libxcursor
-            libxfixes
-            libxi
-            libxinerama
-            libxrender
+            # xorg-server
+            # libxrandr
+            # libxcursor
+            # libxfixes
+            # libxi
+            # libxinerama
+            # libxrender
             valgrind
           ];
         };

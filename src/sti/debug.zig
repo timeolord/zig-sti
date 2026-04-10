@@ -3,12 +3,27 @@ const time = @cImport({
 });
 
 const std = @import("std");
+const sti = @import("sti");
 
-const constants = @import("constants");
+pub const DebugHooks = extern struct {
+    lock_io: *const fn (buffer: [*]u8, len: usize) callconv(.c) *sti.io.Writer,
+    unlock_io: *const fn () callconv(.c) void,
+};
 
-var hooks: constants.DebugHooks = undefined;
+pub fn lock_stderr(buffer: [*]u8, len: usize) callconv(.c) *sti.io.Writer {
+    return sti.debug.lock_stderr_writer(buffer[0..len]);
+}
 
-pub fn load_hooks(debug_hooks: constants.DebugHooks) void {
+pub fn unlock_stderr() callconv(.c) void {
+    return sti.debug.unlock_stderr_writer();
+}
+
+var hooks: DebugHooks = DebugHooks{
+    .lock_io = &lock_stderr,
+    .unlock_io = &unlock_stderr,
+};
+
+pub fn load_hooks(debug_hooks: DebugHooks) void {
     hooks = debug_hooks;
 }
 
